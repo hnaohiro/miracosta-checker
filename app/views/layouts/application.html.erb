@@ -14,7 +14,9 @@
   <body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">
       <%= render 'shared/header' %>
-      <%= yield %>
+      <div class="content-wrapper">
+        <%= yield %>
+      </div>
       <%= render 'shared/footer' %>
     </div>
   </body>

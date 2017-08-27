@@ -14,7 +14,12 @@
           <% @jobs.each do |job| %>
           <tr>
             <td><%= job.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-            <td><%= job.vacancies.map(&:to_s).join(', ') %></td>
+            <td>
+              <% job.vacancies.each.with_index do |vacancy, index| %>
+                <%= ',' unless index.zero? %>
+                <%= link_to vacancy.to_s, "http://rurubu.travel/hrsv/PlanDetail.aspx?st=4296007&sk=20&pc=1030090TREGU0&rc=2007040090TREGU0&rv=4O20&pn=2&ca=0&cb=0&cc=0&cd=0&dt=#{vacancy.date.strftime('%Y%m%d')}", target: '_blank' %>
+              <% end %>
+            </td>
           </tr>
           <% end %>
         </tbody>

@@ -1,5 +1,6 @@
 class Vacancy < ApplicationRecord
   belongs_to :job
+  belongs_to :plan
 
   default_scope { order('id ASC') }
 

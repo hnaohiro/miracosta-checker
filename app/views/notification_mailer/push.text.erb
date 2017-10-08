@@ -1,9 +1,0 @@
-■ チェック日付
-<%= @job.created_at.strftime('%Y/%m/%d %H:%M') %>
-
-■ 空室日
-<% @job.vacancies.each do |vacancy| %>
-<%= vacancy.to_s %>
-<% end %>
-
-https://miracosta-checker.herokuapp.com

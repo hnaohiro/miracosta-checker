@@ -7,19 +7,23 @@
         <thead>
           <tr>
             <th class="col-lg-2">チェック日付</th>
-            <th>空室日</th>
+            <% Plan.all.each do |plan| %>
+            <th><%= plan.name %></th>
+            <% end %>
           </tr>
         </thead>
         <tbody>
           <% @jobs.each do |job| %>
           <tr>
             <td><%= job.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+            <% Plan.all.each do |plan| %>
             <td>
-              <% job.vacancies.each.with_index do |vacancy, index| %>
-                <%= ',' unless index.zero? %>
-                <%= link_to vacancy.to_s, "http://rurubu.travel/hrsv/PlanDetail.aspx?st=4296007&sk=20&pc=1030090TREGU0&rc=2007040090TREGU0&rv=4O20&pn=2&ca=0&cb=0&cc=0&cd=0&dt=#{vacancy.date.strftime('%Y%m%d')}", target: '_blank' %>
+              <% job.vacancies.where(plan: plan).each.with_index do |vacancy, index| %>
+                <%= link_to vacancy.to_s, "#{plan.url}&dt=#{vacancy.date.strftime('%Y%m%d')}", target: '_blank' %>
+                <br>
               <% end %>
             </td>
+            <% end %>
           </tr>
           <% end %>
         </tbody>

@@ -14,6 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'webpacker', '~> 2.0'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'sqlite3'

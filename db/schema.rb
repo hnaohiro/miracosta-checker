@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826172152) do
+ActiveRecord::Schema.define(version: 20171008145222) do
 
   create_table "jobs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -23,7 +30,9 @@ ActiveRecord::Schema.define(version: 20170826172152) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "plan_id"
     t.index ["job_id"], name: "index_vacancies_on_job_id"
+    t.index ["plan_id"], name: "index_vacancies_on_plan_id"
   end
 
 end

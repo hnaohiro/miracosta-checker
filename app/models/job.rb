@@ -4,8 +4,8 @@ class Job < ApplicationRecord
   after_create :notification, if: :exists_new_vacancies
 
   def exists_new_vacancies
-    new_one = Job.first.vacancies.pluck(:date)
-    old_one = Job.second.vacancies.pluck(:date)
+    new_one = Job.first.vacancies.pluck(:plan_id, :date)
+    old_one = Job.second.vacancies.pluck(:plan_id, :date)
     (new_one - old_one).present?
   end
 

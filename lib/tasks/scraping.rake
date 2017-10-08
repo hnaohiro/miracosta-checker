@@ -4,18 +4,20 @@ namespace :scraping do
   task run: :environment do
     vacancies = 7.times.map do |n|
       date = Date.today + n.month
-      html = get(date)
-      parse(html).map do |day, empty, price|
-        Vacancy.new(date: date.change(day: day), price: price)
+      
+      Plan.all.map do |plan|
+        html = get(plan, date)
+        parse(html).map do |day, empty, price|
+          Vacancy.new(plan: plan, date: date.change(day: day), price: price)
+        end
       end
-    end.flatten(1)
+    end.flatten
 
     Job.create(vacancies: vacancies)
   end
 
-  def get(date)
-    param = date.strftime('%Y%m')
-    url = "http://rurubu.travel/hrsv/PlanDetail.aspx?st=4296007&sk=20&pc=1030090TREGU0&rc=2007040090TREGU0&rv=4O20&tbpn=2&cf=#{param}"
+  def get(plan, date)
+    url = "#{plan.url}&cf=#{date.strftime('%Y%m')}"
     Net::HTTP.get(URI.parse(url))
   end
 
